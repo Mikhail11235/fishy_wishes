@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% if item %}{% trans "Редактировать" %}{% else %}{% trans "Создать" %}{% endif %}{% endblock %}
+{% block header %}{% if item %}{% trans "РЕДАКТИРОВАТЬ" %}{% else %}{% trans "СОЗДАТЬ" %}{% endif %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block extra_header_actions %}
+    <a href="{% url 'item_list' %}" class="icon-button">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div id="edit_container" data-item-id="{{ item.id }}">
+        <form method="post" class="edit-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">{% trans "Название" %}</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="error">
+                        {% for error in form.name.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.url.id_for_label }}">{% trans "Ссылка" %}</label>
+                {{ form.url }}
+                {% if form.url.errors %}
+                    <div class="error">
+                        {% for error in form.url.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">{% trans "Описание" %}</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="error">
+                        {% for error in form.description.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div>
+                <label for="{{ form.image.id_for_label }}">{% trans "Картинка" %}</label>
+                {{ form.image }}
+                {% if form.image.errors %}
+                    <div class="error">
+                        {% for error in form.image.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-actions">
+                {% if item %}
+                <a class="btn-delete" onclick="deleteItem(this)">
+                    <i class="fa-regular fa-trash"></i>
+                </a>
+                {% endif %}
+                <button type="submit" class="btn-save">{% trans "Сохранить" %}</button>
+            </div>            
+        </form>
+    </div>
+{% endblock %}
+{% block script %}
+texts["delete_confirm"] = "{% trans "Вы уверены, что хотите удалить этот подарок?" %}";
+{% endblock %}

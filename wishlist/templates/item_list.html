@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Мой Вишлист" %}{% endblock %}
+{% block header %}{% trans "МОЙ ВИШЛИСТ" %}{% endblock %}
+{% block extra_header_actions %}
+{% if user.is_staff %}
+<a href="{% url 'add_item' %}" class="icon-button">
+    <i class="fa-solid fa-plus"></i>
+</a>
+<a href="{% url 'admin:index' %}" class="icon-button">
+    <i class="fa-solid fa-user-gear"></i>
+</a>
+{% endif %}
+{% endblock %}
+{% block content %}
+<div id="list_container">
+    <ul>
+        {% for item in items %}
+            <li {% if item.is_reserved %}class="reserved_item"{% endif %} data-item-id="{{ item.id }}" {% if user.is_staff %}draggable="true"{% endif %}>
+                <div class="item-details">
+                    <strong class="name">{{ item.name }}<span class="reserved">{% if item.is_reserved %} ({% trans "забронировано" %}){% endif %}</span></strong>
+                    {% if item.url %}
+                    <a class="url" target="_blank" href="{{ item.url }}" draggable="false">{{ item.url }}</a>
+                    {% endif %}
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="image" draggable="false">
+                    {% endif %}
+                    <p class="description">{{ item.description|safe }}</p>
+                </div>
+                <div class="item-actions">
+                    <div class="reserve-container">
+                        <input type="checkbox" id="reserve-{{ item.id }}" class="reserve-checkbox" {% if item.is_reserved %} checked {% endif %}{% if user.is_authenticated %} onchange="reserveItem(this)" {% else %} onclick="window.location.href = '/accounts/login'; return false;"{% endif %}>
+                        <label for="reserve-{{ item.id }}" class="reserve-label">
+                            <i class="fas fa-check"></i>
+                        </label>
+                    </div>
+                    <div class="admin-actions">
+                        {% if user.is_staff %}
+                        <a href="{% url 'edit_item' item.id %}" class="icon-button">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+{% block script %}
+    texts["reserved"] = " ({% trans "забронировано" %})";
+    texts["reserve_confirm"] = "{% trans "Вы уверены, что хотите выбрать этот подарок?" %}";
+    texts["reserve_cancel"] = "{% trans "Вы уверены, что хотите снять бронь с этого подарка?" %}";
+    animate = true;
+    document.getElementById("confirmBtn").addEventListener('click', pop)
+    {% if user.is_staff %}
+    let draggedItem = null;
+    initDragAndDrop();
+    {% endif %}
+{% endblock %}

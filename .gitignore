@@ -1,0 +1,11 @@
+__pycache__
+*.pyc
+.venv
+env
+.env
+*.mo
+media/item_images/*
+staticfiles/*
+notes.txt
+.DS_Store
+migrations

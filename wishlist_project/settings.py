@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-5#kac^--4=!&x$nsp=v94ggqtk1qkzmifi33)g__-dn-@3^8=*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOST")]
 
 
 # Application definition
@@ -137,4 +137,10 @@ LANGUAGES = [
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
+]
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://%s' % os.environ.get("DJANGO_ALLOWED_HOST"),
+    'https://www.%s' % os.environ.get("DJANGO_ALLOWED_HOST"),
 ]

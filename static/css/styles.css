@@ -30,9 +30,13 @@ body {
 }
 
 footer {
+    color: black;
     padding: 1rem 0;
     text-align: center;
     color: black;
+    position: inherit;
+    bottom: 0;
+    width: 100%;
 }
 
 header {
@@ -61,6 +65,7 @@ header h1 {
     text-align: center;
     flex-grow: 1;
     -webkit-text-stroke: 1.5px rgba(0, 0, 0, 1);
+    word-break: break-word;
 }
 
 .header-actions {
@@ -129,12 +134,70 @@ header h1 {
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 770px) {
     .header {
         max-width: 400px !important;
     }
+
+    .modal-content {
+        width: 400px !important;
+    }
 }
 
+@media (max-width: 540px) {
+    :root {
+        --max-width: 400px !important;
+    }
+    
+    .header {
+        max-width: 200px !important;
+    }
+
+    #list_container li {
+        flex-direction: column !important;
+    }
+    
+    .image {
+        max-width: 200px !important;
+    }
+
+    .item-actions {
+        margin-top: 15px;
+    }
+
+    #list_container {
+        margin-top: 0 !important;
+    }
+
+    .modal-content {
+        width: 300px !important;
+    }
+}
+
+@media (max-width: 460px) {
+    :root {
+        --container-width: none !important;
+    }
+
+    #list_container {
+        padding: 0 !important;
+    }
+    .image {
+        max-width: 180px !important;
+    }
+
+    body {
+        min-width: 340px;
+    }
+
+    header h1 {
+        font-size: 2rem !important;
+    }
+
+    .modal-content {
+        width: 200px !important;
+    }
+}
 
 .center-container {
     display: flex;
@@ -142,6 +205,7 @@ header h1 {
     align-items: start;
     min-height: 100vh;
     padding: 1rem;
+    margin-bottom: 40px;
 }
 
 #edit_container {
@@ -288,6 +352,7 @@ header h1 {
     margin-bottom: 1.5rem;
     padding: 1.5rem;
     transition: transform 0.3s;
+    min-width: 285px
 }
 
 #list_container .reserved_item {
@@ -458,7 +523,7 @@ header h1 {
     padding: 0.5rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s ease;
-    display: grid;
+    text-align: center;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;

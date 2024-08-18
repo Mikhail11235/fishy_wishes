@@ -17,10 +17,13 @@ from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+DEBUG = False
 
 env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
+if DEBUG:
+    environ.Env.read_env(os.path.join(BASE_DIR, '.env_dev'))
+else:
+    environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -29,7 +32,6 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = 'django-insecure-5#kac^--4=!&x$nsp=v94ggqtk1qkzmifi33)g__-dn-@3^8=*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOST")]
 
@@ -120,7 +122,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, '/app/staticfiles')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/app/media/'
+if DEBUG:
+    MEDIA_ROOT = 'media/'
+else:
+    MEDIA_ROOT = '/app/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

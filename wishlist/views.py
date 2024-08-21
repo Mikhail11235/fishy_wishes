@@ -66,6 +66,8 @@ def delete_item(request, item_id):
 def reserve_item(request, item_id):
     item = get_object_or_404(Item, id=item_id)
     if request.method == 'POST':
+        if request.GET.get("checked") == "0" and item.is_reserved:
+            return JsonResponse({"conflict": True})
         item.is_reserved = not item.is_reserved
         item.save()
         return JsonResponse({"is_reserved": item.is_reserved, "item_id": item.pk})

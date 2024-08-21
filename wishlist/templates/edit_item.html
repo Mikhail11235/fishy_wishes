@@ -4,9 +4,9 @@
 {% block header %}{% if item %}{% trans "РЕДАКТИРОВАТЬ" %}{% else %}{% trans "СОЗДАТЬ" %}{% endif %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block extra_header_actions %}
-    <a href="{% url 'item_list' %}" class="icon-button">
+    <button onclick="window.location.href='{% url 'item_list' %}';" class="icon-button icon-button-big">
         <i class="fa-solid fa-arrow-left"></i>
-    </a>
+    </button>
 {% endblock %}
 
 {% block content %}

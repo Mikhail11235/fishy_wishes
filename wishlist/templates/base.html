@@ -17,38 +17,40 @@
             <h1>{% block header %}{% endblock %}</h1>
         </div>
         <div class="header-actions">
-            <button id="menu-toggle" class="icon-button icon-button-big menu-icon">
+            <button id="menu-toggle" class="icon-button menu-icon">
                 <i class="fa-solid fa-bars"></i>
             </button>
             <div class="action-icons" id="action-icons">
+                <div class="action-icons-set">
                 {% block extra_header_actions %}
                 {% endblock %}
                 <div class="language-selector">
-                    <button id="language-toggle" class="icon-button icon-button-big">
-                        <i class="fa-solid fa-globe"></i>
-                    </button>
-                    <div id="language-menu" class="language-menu">
-                        <form action="{% url 'set_language' %}" method="post">
-                            {% csrf_token %}
-                            <select name="language" onchange="this.form.submit()">
-                                <option value="ru" {% if LANGUAGE_CODE == 'ru' %}selected{% endif %}>🇷🇺 Русский</option>
-                                <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧 English</option>
-                            </select>
-                        </form>
-                    </div>
+                <button id="language-toggle" class="icon-button">
+                    <i class="fa-solid fa-globe"></i>
+                </button>
+                <div id="language-menu" class="language-menu">
+                    <form action="{% url 'set_language' %}" method="post">
+                        {% csrf_token %}
+                        <select name="language" onchange="this.form.submit()">
+                            <option value="ru" {% if LANGUAGE_CODE == 'ru' %}selected{% endif %}>🇷🇺 Русский</option>
+                            <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧 English</option>
+                        </select>
+                    </form>
+                </div>
                 </div>
                 {% if user.is_authenticated %}
                     <form action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="icon-button icon-button-big">
+                        <button type="submit" class="icon-button">
                             <i class="fas fa-sign-out-alt"></i>
                         </button>
                     </form>
                 {% else %}
-                    <a href="{% url 'login' %}" class="icon-button">
+                    <button onclick="window.location.href='{% url 'login' %}';" class="icon-button">
                         <i class="fas fa-sign-in-alt"></i>
-                    </a>
+                    </button>
                 {% endif %}
+                </div>
             </div>
         </div>
     </header>    
@@ -73,7 +75,7 @@
         {% endblock %}
     </footer>
     <script src="{% static 'js/scripts.js' %}"></script>
-    <script src="{% static 'js/animation.js' %}"></script>
+    {% block extra_script %}{% endblock %}
     <script>
         texts = {}
         document.addEventListener("DOMContentLoaded", function() {
@@ -92,8 +94,11 @@
             const menuToggle = document.getElementById("menu-toggle");
             const actionIcons = document.getElementById("action-icons");
             if (menuToggle && actionIcons) {
-                menuToggle.addEventListener("click", function() {
-                    actionIcons.classList.toggle('show');
+                menuToggle.addEventListener("click", function() {actionIcons.classList.toggle('show');});
+                document.addEventListener("click", function() {
+                    if (!actionIcons.contains(event.target) && !menuToggle.contains(event.target)) {
+                        actionIcons.classList.remove('show');
+                    }
                 });
             }
         });

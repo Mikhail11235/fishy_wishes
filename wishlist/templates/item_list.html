@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load static %}
 {% block title %}{% trans "Мой Вишлист" %}{% endblock %}
 {% block header %}{% trans "МОЙ ВИШЛИСТ" %}{% endblock %}
 {% block extra_header_actions %}
 {% if user.is_staff %}
-<a href="{% url 'add_item' %}" class="icon-button">
+<button onclick="window.location.href='{% url 'add_item' %}';" class="icon-button">
     <i class="fa-solid fa-plus"></i>
-</a>
-<a href="{% url 'admin:index' %}" class="icon-button">
+</button>
+<button onclick="window.location.href='{% url 'admin:index' %}';" class="icon-button">
     <i class="fa-solid fa-user-gear"></i>
-</a>
+</button>
 {% endif %}
 {% endblock %}
 {% block content %}
@@ -28,19 +29,14 @@
                     <p class="description">{{ item.description|safe }}</p>
                 </div>
                 <div class="item-actions">
-                    <div class="reserve-container">
-                        <input type="checkbox" id="reserve-{{ item.id }}" class="reserve-checkbox" {% if item.is_reserved %} checked {% endif %}{% if user.is_authenticated %} onchange="reserveItem(this)" {% else %} onclick="window.location.href = '/accounts/login'; return false;"{% endif %}>
-                        <label for="reserve-{{ item.id }}" class="reserve-label">
-                            <i class="fas fa-check"></i>
-                        </label>
-                    </div>
-                    <div class="admin-actions">
-                        {% if user.is_staff %}
-                        <a href="{% url 'edit_item' item.id %}" class="icon-button">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        {% endif %}
-                    </div>
+                    <button class="icon-button {% if item.is_reserved %}checked{% else %}glow{% endif %}" onclick="{% if user.is_authenticated %}reserveItem(this){% else %}onclick="window.location.href = '/accounts/login'{% endif %}">
+                        <i class="fas fa-check"></i>
+                    </button>
+                    {% if user.is_staff %}
+                    <button onclick="window.location.href='{% url 'edit_item' item.id %}';" class="icon-button">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    {% endif %}
                 </div>
             </li>
         {% endfor %}
@@ -51,10 +47,13 @@
     texts["reserved"] = " ({% trans "забронировано" %})";
     texts["reserve_confirm"] = "{% trans "Вы уверены, что хотите выбрать этот подарок?" %}";
     texts["reserve_cancel"] = "{% trans "Вы уверены, что хотите снять бронь с этого подарка?" %}";
-    animate = true;
-    document.getElementById("confirmBtn").addEventListener('click', pop)
+    texts["reserve_conflict"] = "{% trans "Упс, кто-то уже выбрал этот подарок.." %}";
     {% if user.is_staff %}
     let draggedItem = null;
     initDragAndDrop();
     {% endif %}
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/animation.js' %}"></script>
 {% endblock %}

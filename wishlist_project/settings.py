@@ -21,9 +21,9 @@ DEBUG = False
 
 env = environ.Env()
 if DEBUG:
-    environ.Env.read_env(os.path.join(BASE_DIR, '.env_dev'))
+    environ.Env.read_env(os.path.join(BASE_DIR, 'local.env'))
 else:
-    environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+    environ.Env.read_env(os.path.join(BASE_DIR, 'prod.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/

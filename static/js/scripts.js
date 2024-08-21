@@ -1,24 +1,22 @@
-function reserveItem(button, text) {
+function reserveItem(button) {
     const modal = document.getElementById("confirmModal");
     const confirmBtn = document.getElementById("confirmBtn");
     const cancelBtn = document.getElementById("cancelBtn");
     const span = document.getElementsByClassName("close")[0];
-    let itemId = button.parentElement.parentElement.parentElement.getAttribute("data-item-id");
-    let isChecked = button.checked;
+    let itemId = button.parentElement.parentElement.getAttribute("data-item-id");
+    let isChecked = button.classList.contains("checked");
     let modal_text = modal.querySelector(".modal-text");
-    button.checked = !isChecked;
     if (isChecked) {
-        animate = true;
-        modal_text.innerText = texts["reserve_confirm"];
-    } else {
         animate = false;
         modal_text.innerText = texts["reserve_cancel"];
+    } else {
+        animate = true;
+        modal_text.innerText = texts["reserve_confirm"];
     }
     modal.style.display = "block";
     confirmBtn.onclick = function() {
         modal.style.display = "none";
-        button.checked = isChecked;
-        fetch(`/reserve/${itemId}/`, { 
+        fetch(`/reserve/${itemId}/?checked=${Number(isChecked)}`, { 
             method: "POST",
             headers: {
                 "X-CSRFToken": getCookie("csrftoken")
@@ -27,31 +25,41 @@ function reserveItem(button, text) {
         .then(response => response.json())
         .then(data => {
             var item = document.querySelector(`li[data-item-id="${data.item_id}"]`);
-            if (data.is_reserved === false) {
+            if (data.conflict) {
+                animate = false;
+                modal.style.display = "block";
+                modal.querySelectorAll(".modal-button").forEach(function(elem){elem.style.display="none"});
+                modal_text.innerText = texts["reserve_conflict"];
+                cancelBtn.onclick = span.onclick = function() {
+                    window.location = "/";
+                }
+            } else if (data.is_reserved === false) {
+                button.classList.remove("checked");
+                button.classList.add("glow");
                 item.querySelectorAll(".reserved").forEach(function(elem){elem.remove()});
                 item.classList.remove("reserved_item");
             } else if (data.is_reserved === true) {
+                button.classList.add("checked");
+                button.classList.remove("glow");
                 item.classList.add("reserved_item");
                 let tmp = document.createElement("span");
                 tmp.className = "reserved";
                 tmp.innerText = texts["reserved"];
                 item.querySelector(".name").appendChild(tmp);
+                pop(button);
             }
         })
         .catch(error => {
-            button.checked = !isChecked;
-            console.error("Request failed", error);
+            console.error("Request failed");
         });
     }
     cancelBtn.onclick = span.onclick = function() {
         modal.style.display = "none";
-        button.checked = !isChecked;
     }
 
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
-            button.checked = !isChecked;
         }
     }
 }

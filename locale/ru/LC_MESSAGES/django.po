@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-17 19:32+0300\n"
+"POT-Creation-Date: 2024-08-21 15:08+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,15 +24,15 @@ msgstr ""
 msgid "Вход"
 msgstr "Вход"
 
-#: wishlist/templates/base.html:9 wishlist/templates/item_list.html:3
+#: wishlist/templates/base.html:9 wishlist/templates/item_list.html:4
 msgid "Мой Вишлист"
 msgstr "Мой Вишлист"
 
-#: wishlist/templates/base.html:66
+#: wishlist/templates/base.html:67
 msgid "Нет"
 msgstr "Нет"
 
-#: wishlist/templates/base.html:67
+#: wishlist/templates/base.html:68
 msgid "Да"
 msgstr "Да"
 
@@ -76,21 +76,25 @@ msgstr "Сохранить"
 msgid "Вы уверены, что хотите удалить этот подарок?"
 msgstr "Вы уверены, что хотите удалить этот подарок?"
 
-#: wishlist/templates/item_list.html:4
+#: wishlist/templates/item_list.html:5
 msgid "МОЙ ВИШЛИСТ"
 msgstr "МОЙ ВИШЛИСТ"
 
-#: wishlist/templates/item_list.html:21 wishlist/templates/item_list.html:51
+#: wishlist/templates/item_list.html:22 wishlist/templates/item_list.html:47
 msgid "забронировано"
 msgstr "забронировано"
 
-#: wishlist/templates/item_list.html:52
+#: wishlist/templates/item_list.html:48
 msgid "Вы уверены, что хотите выбрать этот подарок?"
 msgstr "Вы уверены, что хотите выбрать этот подарок?"
 
-#: wishlist/templates/item_list.html:53
+#: wishlist/templates/item_list.html:49
 msgid "Вы уверены, что хотите снять бронь с этого подарка?"
 msgstr "Вы уверены, что хотите снять бронь с этого подарка?"
+
+#: wishlist/templates/item_list.html:50
+msgid "Упс, кто-то уже выбрал этот подарок.."
+msgstr "Упс, кто-то уже выбрал этот подарок.."
 
 #: wishlist/templates/registration/login.html:4
 msgid "ВХОД"
@@ -108,10 +112,10 @@ msgstr "Пароль"
 msgid "Войти"
 msgstr "Войти"
 
-#: wishlist_project/settings.py:146
+#: wishlist_project/settings.py:139
 msgid "Russian"
 msgstr "Русский"
 
-#: wishlist_project/settings.py:147
+#: wishlist_project/settings.py:140
 msgid "English"
 msgstr "Английский"

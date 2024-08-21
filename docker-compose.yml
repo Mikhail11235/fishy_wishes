@@ -6,7 +6,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - prod.env
+      - ./prod.env
     environment:
       - POSTGRES_USER=${PGUSER}
       - POSTGRES_PASSWORD=${PGPASSWORD}
@@ -24,13 +24,15 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - prod.env
+      - ./prod.env
 
   nginx:
     image: nginx:latest
     ports:
       - "80:80"
       - "443:443"
+    env_file:
+      - ./prod.env
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./staticfiles:/app/staticfiles
@@ -45,7 +47,7 @@ services:
     volumes:
       - postgres_backup:/backups
     env_file:
-      - prod.env
+      - ./prod.env
     depends_on:
       - db
 

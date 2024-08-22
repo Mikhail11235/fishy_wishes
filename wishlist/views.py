@@ -33,7 +33,7 @@ def get_client_ip(request):
 
 def item_list(request):
     items = Item.objects.all().order_by('is_reserved', 'order')
-    return render(request, 'item_list.html', {'items': items})
+    return render(request, 'item_list.html', {'items': items, 'current_template': 'item_list'})
 
 
 @staff_member_required

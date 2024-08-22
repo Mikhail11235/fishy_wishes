@@ -44,7 +44,16 @@
 </div>
 {% endblock %}
 {% block script %}
-    timeout = 800;
+    document.addEventListener("DOMContentLoaded", function() {
+        var backgroundImage = new Image();
+        backgroundImage.src = "{% static 'images/bg.png' %}";
+        backgroundImage.onload = function() {
+            setTimeout(function() {
+                document.body.classList.remove('not_loaded');
+                document.querySelector('.loader').style.display = 'none';
+            }, 800);
+        };
+    });
     texts["reserved"] = " ({% trans "забронировано" %})";
     texts["reserve_confirm"] = "{% trans "Вы уверены, что хотите выбрать этот подарок?" %}";
     texts["reserve_cancel"] = "{% trans "Вы уверены, что хотите снять бронь с этого подарка?" %}";

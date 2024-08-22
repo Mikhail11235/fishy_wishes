@@ -58,13 +58,12 @@ body {
     margin-right: 20px;
 }
 
-.loaded body {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: auto;
+body.not_loaded {
+    background-image: none !important;
+}
+
+.not_loaded main {
+    display: none;
 }
 
 footer {

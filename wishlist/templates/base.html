@@ -7,17 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{% block title %}{% trans "Мой Вишлист" %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
     <style>
-        body.loaded {
+        body {
             background-image: url("{% static 'images/bg.png' %}");
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-    <div class="loader">
+<body class="{% if current_template == 'item_list' %}not_loaded{% endif %}">
+    <div class="loader" {% if current_template != 'item_list' %}style="display: none;"{% endif %}>
         <img src="{% static 'images/loader.gif' %}">
         <span>{% trans "Загрузка..." %}</span>
     </div>
@@ -89,16 +92,6 @@
     <script>
         texts = {}
         var timeout = 0;
-        document.addEventListener("DOMContentLoaded", function() {
-            var backgroundImage = new Image();
-            backgroundImage.src = "{% static 'images/bg.png' %}";
-            backgroundImage.onload = function() {
-                setTimeout(function() {
-                    document.body.classList.add('loaded');
-                    document.querySelector('.loader').style.display = 'none';
-                }, timeout);
-            };
-        });
         document.addEventListener("DOMContentLoaded", function() {
             const languageToggle = document.getElementById("language-toggle");
             const languageMenu = document.getElementById("language-menu");

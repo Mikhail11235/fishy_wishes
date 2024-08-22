@@ -20,20 +20,22 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: url("../images/fish.png") repeat center top;
+    background-image: url("../images/bg.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
-    background-color: var(--background-color);
     color: #333;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 footer {
-    color: black;
     padding: 1rem 0;
     text-align: center;
-    color: black;
+    color: white;
     position: inherit;
     bottom: 0;
     width: 100%;
@@ -160,6 +162,10 @@ header h1 {
     
     .header {
         max-width: 200px !important;
+    }
+
+    body {
+        background-image: url("../images/bg_small.png") !important;
     }
 
     #list_container li {

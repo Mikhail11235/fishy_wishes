@@ -11,82 +11,94 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <style>
-        body {
+        body.loaded {
             background-image: url("{% static 'images/bg.png' %}");
-        }
-        @media (max-width: 540px) {
-            body {
-                background-image: url("{% static 'images/bg_small.png' %}") !important;
-            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header">
-            <h1>{% block header %}{% endblock %}</h1>
-        </div>
-        <div class="header-actions">
-            <button id="menu-toggle" class="icon-button menu-icon">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <div class="action-icons" id="action-icons">
-                <div class="action-icons-set">
-                {% block extra_header_actions %}
-                {% endblock %}
-                <div class="language-selector">
-                <button id="language-toggle" class="icon-button">
-                    <i class="fa-solid fa-globe"></i>
-                </button>
-                <div id="language-menu" class="language-menu">
-                    <form action="{% url 'set_language' %}" method="post">
-                        {% csrf_token %}
-                        <select name="language" onchange="this.form.submit()">
-                            <option value="ru" {% if LANGUAGE_CODE == 'ru' %}selected{% endif %}>🇷🇺 Русский</option>
-                            <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧 English</option>
-                        </select>
-                    </form>
-                </div>
-                </div>
-                {% if user.is_authenticated %}
-                    <form action="{% url 'logout' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="icon-button">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </button>
-                    </form>
-                {% else %}
-                    <button onclick="window.location.href='{% url 'login' %}';" class="icon-button">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </button>
-                {% endif %}
-                </div>
-            </div>
-        </div>
-    </header>    
-    <main>
-        <div class="center-container">
-        {% block content %}{% endblock %}
-        </div>
-    </main>
-    <div id="confirmModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p class="modal-text"></p>
-            <div class="modal-buttons">
-                <button id="cancelBtn" class="modal-button cancel">{% trans "Нет" %}</button>
-                <button id="confirmBtn" data-type="shadow" class="modal-button">{% trans "Да" %}</button>
-            </div>
-        </div>
+    <div class="loader">
+        <img src="{% static 'images/loader.gif' %}">
+        <span>{% trans "Загрузка..." %}</span>
     </div>
-    <footer>
-        {% block footer %}
-        {% endblock %}
-    </footer>
+    <div class="content">
+        <header>
+            <div class="header">
+                <h1>{% block header %}{% endblock %}</h1>
+            </div>
+            <div class="header-actions">
+                <button id="menu-toggle" class="icon-button menu-icon">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="action-icons" id="action-icons">
+                    <div class="action-icons-set">
+                    {% block extra_header_actions %}
+                    {% endblock %}
+                    <div class="language-selector">
+                    <button id="language-toggle" class="icon-button">
+                        <i class="fa-solid fa-globe"></i>
+                    </button>
+                    <div id="language-menu" class="language-menu">
+                        <form action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <select name="language" onchange="this.form.submit()">
+                                <option value="ru" {% if LANGUAGE_CODE == 'ru' %}selected{% endif %}>🇷🇺 Русский</option>
+                                <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>🇬🇧 English</option>
+                            </select>
+                        </form>
+                    </div>
+                    </div>
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="icon-button">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </button>
+                        </form>
+                    {% else %}
+                        <button onclick="window.location.href='{% url 'login' %}';" class="icon-button">
+                            <i class="fas fa-sign-in-alt"></i>
+                        </button>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </header>    
+        <main>
+            <div class="center-container">
+            {% block content %}{% endblock %}
+            </div>
+        </main>
+        <div id="confirmModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p class="modal-text"></p>
+                <div class="modal-buttons">
+                    <button id="cancelBtn" class="modal-button cancel">{% trans "Нет" %}</button>
+                    <button id="confirmBtn" data-type="shadow" class="modal-button">{% trans "Да" %}</button>
+                </div>
+            </div>
+        </div>
+        <footer>
+            {% block footer %}
+            {% endblock %}
+        </footer>
+    </div>
     <script src="{% static 'js/scripts.js' %}"></script>
     {% block extra_script %}{% endblock %}
     <script>
         texts = {}
+        var timeout = 0;
+        document.addEventListener("DOMContentLoaded", function() {
+            var backgroundImage = new Image();
+            backgroundImage.src = "{% static 'images/bg.png' %}";
+            backgroundImage.onload = function() {
+                setTimeout(function() {
+                    document.body.classList.add('loaded');
+                    document.querySelector('.loader').style.display = 'none';
+                }, timeout);
+            };
+        });
         document.addEventListener("DOMContentLoaded", function() {
             const languageToggle = document.getElementById("language-toggle");
             const languageMenu = document.getElementById("language-menu");

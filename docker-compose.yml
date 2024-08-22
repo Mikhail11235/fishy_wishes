@@ -42,14 +42,14 @@ services:
     depends_on:
       - web
 
-  backup:
-    build: ./backup
-    volumes:
-      - postgres_backup:/backups
-    env_file:
-      - ./prod.env
-    depends_on:
-      - db
+  # backup:
+  #   build: ./backup
+  #   volumes:
+  #     - postgres_backup:/backups
+  #   env_file:
+  #     - ./prod.env
+  #   depends_on:
+  #     - db
 
 volumes:
   postgres_data:

@@ -20,7 +20,6 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-image: url("../images/bg.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -162,10 +161,6 @@ header h1 {
     
     .header {
         max-width: 200px !important;
-    }
-
-    body {
-        background-image: url("../images/bg_small.png") !important;
     }
 
     #list_container li {

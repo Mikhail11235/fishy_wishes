@@ -19,8 +19,8 @@
     </style>
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
-<body class="{% if current_template == 'item_list' %}not_loaded{% endif %}">
-    <div class="loader" {% if current_template != 'item_list' %}style="display: none;"{% endif %}>
+<body class="not_loaded">
+    <div class="loader">
         <img src="{% static 'images/loader.gif' %}">
         <span>{% trans "Загрузка..." %}</span>
     </div>
@@ -91,7 +91,21 @@
     {% block extra_script %}{% endblock %}
     <script>
         texts = {}
-        var timeout = 0;
+        document.addEventListener("DOMContentLoaded", function() {
+            var backgroundImage = new Image();
+            backgroundImage.src = "{% static 'images/bg.png' %}";
+            if (backgroundImage.complete) {
+                document.body.classList.remove('not_loaded');
+                document.querySelector('.loader').style.display = 'none';
+            } else {
+                backgroundImage.onload = function() {
+                    setTimeout(function() {
+                        document.body.classList.remove('not_loaded');
+                        document.querySelector('.loader').style.display = 'none';
+                    }, 800);
+                };
+            }
+        });
         document.addEventListener("DOMContentLoaded", function() {
             const languageToggle = document.getElementById("language-toggle");
             const languageMenu = document.getElementById("language-menu");

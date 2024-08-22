@@ -29,6 +29,10 @@ body {
     box-sizing: border-box;
     height: 100vh;
     overflow-y: auto;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 footer {
@@ -198,6 +202,7 @@ header h1 {
 
     body {
         min-width: 340px;
+        background-position: center !important;
     }
 
     header h1 {

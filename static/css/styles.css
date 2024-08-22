@@ -692,6 +692,7 @@ particle {
     position: absolute;
     top: 100%;
     right: 0;
+    z-index: 11;
 }
 
 .language-menu.show {

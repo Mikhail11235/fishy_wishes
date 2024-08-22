@@ -29,7 +29,7 @@
                     <p class="description">{{ item.description|safe }}</p>
                 </div>
                 <div class="item-actions">
-                    <button class="icon-button {% if item.is_reserved %}checked{% else %}glow{% endif %}" onclick="{% if user.is_authenticated %}reserveItem(this){% else %}onclick="window.location.href = '/accounts/login'{% endif %}">
+                    <button class="icon-button {% if item.is_reserved %}checked{% else %}glow{% endif %}" onclick="{% if user.is_authenticated %}reserveItem(this){% else %}window.location.href = '/accounts/login';{% endif %}">
                         <i class="fas fa-check"></i>
                     </button>
                     {% if user.is_staff %}

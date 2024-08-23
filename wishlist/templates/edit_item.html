@@ -46,7 +46,18 @@
                     </div>
                 {% endif %}
             </div>
-            <div>
+            <div class="form-group" style="flex-direction: row;">
+                <label for="{{ form.not_reservable.id_for_label }}">{% trans "Нельзя забронировать" %}</label>
+                {{ form.not_reservable }}
+                {% if form.not_reservable.errors %}
+                    <div class="error">
+                        {% for error in form.not_reservable.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
                 <label for="{{ form.image.id_for_label }}">{% trans "Картинка" %}</label>
                 {{ form.image }}
                 {% if form.image.errors %}

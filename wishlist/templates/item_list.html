@@ -29,9 +29,11 @@
                     <p class="description">{{ item.description|safe }}</p>
                 </div>
                 <div class="item-actions">
+                    {% if not item.not_reservable %}
                     <button class="icon-button {% if item.is_reserved %}checked{% else %}glow{% endif %}" onclick="{% if user.is_authenticated %}reserveItem(this){% else %}window.location.href = '/accounts/login';{% endif %}">
                         <i class="fas fa-check"></i>
                     </button>
+                    {% endif %}
                     {% if user.is_staff %}
                     <button onclick="window.location.href='{% url 'edit_item' item.id %}';" class="icon-button">
                         <i class="fa-solid fa-pen-to-square"></i>

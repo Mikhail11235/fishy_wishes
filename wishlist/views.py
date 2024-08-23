@@ -65,6 +65,8 @@ def delete_item(request, item_id):
 @login_required
 def reserve_item(request, item_id):
     item = get_object_or_404(Item, id=item_id)
+    if item.not_reservable:
+        return HttpResponseForbidden()
     if request.method == 'POST':
         if request.GET.get("checked") == "0" and item.is_reserved:
             return JsonResponse({"conflict": True})

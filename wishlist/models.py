@@ -9,6 +9,7 @@ class Item(models.Model):
     is_reserved = models.BooleanField(default=False)
     image = models.ImageField(upload_to='item_images/', blank=True, null=True)
     order = models.IntegerField(blank=True, null=True)
+    not_reservable = models.BooleanField(default=False, blank=True)
 
     def __str__(self):
         return self.name

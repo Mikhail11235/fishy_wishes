@@ -28,16 +28,16 @@ body {
     padding: 0;
     box-sizing: border-box;
     height: 100vh;
-    overflow-y: auto;
     background-color: var(--primary-color);
 }
 
 .content {
     position: relative;
     z-index: 1;
-    padding: 20px;
     width: 100%;
     box-sizing: border-box;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 .loader {
     position: fixed;

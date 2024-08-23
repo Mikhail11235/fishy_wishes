@@ -156,10 +156,5 @@ A simple solution for keeping track of all your gift desires. Whether you're pla
     ```
 </details>
 
-## 📝 License
-
-This project is licensed under the [MIT License](LICENSE). See the `LICENSE` file for details.
-
-## 🤝 Contributing and Support
-
+This project is licensed under the [MIT License](LICENSE).
 If you have ideas for improvements or want to help with development, feel free to create a Pull Request or open an Issue.

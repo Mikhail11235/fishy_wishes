@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-22 15:39+0300\n"
+"POT-Creation-Date: 2024-08-23 15:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,15 +28,15 @@ msgstr "Вход"
 msgid "Мой Вишлист"
 msgstr "Мой Вишлист"
 
-#: wishlist/templates/base.html:22
+#: wishlist/templates/base.html:25
 msgid "Загрузка..."
 msgstr "Загрузка..."
 
-#: wishlist/templates/base.html:77
+#: wishlist/templates/base.html:80
 msgid "Нет"
 msgstr "Нет"
 
-#: wishlist/templates/base.html:78
+#: wishlist/templates/base.html:81
 msgid "Да"
 msgstr "Да"
 
@@ -69,14 +69,18 @@ msgid "Описание"
 msgstr "Описание"
 
 #: wishlist/templates/edit_item.html:50
+msgid "Нельзя забронировать"
+msgstr "Нельзя забронировать"
+
+#: wishlist/templates/edit_item.html:61
 msgid "Картинка"
 msgstr "Картинка"
 
-#: wishlist/templates/edit_item.html:66
+#: wishlist/templates/edit_item.html:77
 msgid "Сохранить"
 msgstr "Сохранить"
 
-#: wishlist/templates/edit_item.html:72
+#: wishlist/templates/edit_item.html:83
 msgid "Вы уверены, что хотите удалить этот подарок?"
 msgstr "Вы уверены, что хотите удалить этот подарок?"
 
@@ -84,19 +88,19 @@ msgstr "Вы уверены, что хотите удалить этот под�
 msgid "МОЙ ВИШЛИСТ"
 msgstr "МОЙ ВИШЛИСТ"
 
-#: wishlist/templates/item_list.html:22 wishlist/templates/item_list.html:48
+#: wishlist/templates/item_list.html:22 wishlist/templates/item_list.html:49
 msgid "забронировано"
 msgstr "забронировано"
 
-#: wishlist/templates/item_list.html:49
+#: wishlist/templates/item_list.html:50
 msgid "Вы уверены, что хотите выбрать этот подарок?"
 msgstr "Вы уверены, что хотите выбрать этот подарок?"
 
-#: wishlist/templates/item_list.html:50
+#: wishlist/templates/item_list.html:51
 msgid "Вы уверены, что хотите снять бронь с этого подарка?"
 msgstr "Вы уверены, что хотите снять бронь с этого подарка?"
 
-#: wishlist/templates/item_list.html:51
+#: wishlist/templates/item_list.html:52
 msgid "Упс, кто-то уже выбрал этот подарок.."
 msgstr "Упс, кто-то уже выбрал этот подарок.."
 

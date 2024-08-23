@@ -417,7 +417,7 @@ header h1 {
     margin-bottom: 1.5rem;
     padding: 1.5rem;
     transition: transform 0.3s;
-    min-width: 285px
+    min-width: 200px
 }
 
 #list_container .reserved_item {
@@ -516,6 +516,7 @@ header h1 {
     margin: 0.5rem 0;
     color: var(--secondary-color);
     font-size: 0.95rem;
+    word-break: break-all;
 }
 
 .description {

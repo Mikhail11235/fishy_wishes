@@ -715,6 +715,7 @@ particle {
     background-repeat: no-repeat;
     background-size: contain;
     z-index: 20;
+    will-change: transform, opacity;
 }
 
 .reserved {

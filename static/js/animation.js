@@ -1,8 +1,9 @@
 function pop(element) {
     let amount = 60;
     const bbox = element.getBoundingClientRect();
-    const x = bbox.left + window.scrollX + bbox.width / 2;
-    const y = bbox.top + window.scrollY + bbox.height / 2;
+    const coords = getGlobalCoordinates(element)
+    const x = coords.left + bbox.width / 2;
+    const y = coords.top + bbox.height / 2;
     let doc_content = document.querySelector(".content");
     for (let i = 0; i < amount; i++) {
         const particle = document.createElement('particle');
@@ -42,5 +43,25 @@ function createParticle(particle, doc_content, x, y) {
     });
     animation.onfinish = function() {
         particle.remove();
+    };
+}
+
+function getGlobalCoordinates(element) {
+    function getOffset(element) {
+        let offsetTop = 0;
+        let offsetLeft = 0;
+        while (element) {
+            offsetTop += element.offsetTop;
+            offsetLeft += element.offsetLeft;
+            element = element.offsetParent;
+        }
+        return { top: offsetTop, left: offsetLeft };
+    }
+    const elementOffset = getOffset(element);
+    const top = elementOffset.top;
+    const left = elementOffset.left;
+    return {
+        top: top,
+        left: left
     };
 }

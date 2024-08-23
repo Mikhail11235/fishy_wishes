@@ -3,14 +3,15 @@ function pop(element) {
     const bbox = element.getBoundingClientRect();
     const x = bbox.left + window.scrollX + bbox.width / 2;
     const y = bbox.top + window.scrollY + bbox.height / 2;
+    let doc_content = document.querySelector(".content");
     for (let i = 0; i < amount; i++) {
         const particle = document.createElement('particle');
 		particle.style.borderRadius = '50%';
-        createParticle(particle, x, y);
+        createParticle(particle, doc_content, x, y);
     }
 }
 
-function createParticle(particle, x, y) {
+function createParticle(particle, doc_content, x, y) {
     let width = Math.floor(Math.random() * 30 + 8);
     let height = width;
     let destinationX = (Math.random() - 0.5) * 300;
@@ -24,7 +25,7 @@ function createParticle(particle, x, y) {
     particle.style.width = `${width}px`;
     particle.style.height = `${height}px`;
     particle.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-    document.body.appendChild(particle);
+    doc_content.appendChild(particle);
     const animation = particle.animate([
         {
             transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(0deg)`,

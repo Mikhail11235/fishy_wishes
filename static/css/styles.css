@@ -220,7 +220,7 @@ header h1 {
 
 @media (max-width: 460px) {
     :root {
-        --container-width: none !important;
+        --container-width: 300px !important;
     }
 
     #list_container {
@@ -537,6 +537,7 @@ header h1 {
 }
 
 .item-details {
+    min-width: 200px;
     width: 100%;
     flex: 1;
     align-self: flex-start;

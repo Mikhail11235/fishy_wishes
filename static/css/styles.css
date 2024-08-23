@@ -517,6 +517,9 @@ header h1 {
     color: var(--secondary-color);
     font-size: 0.95rem;
     word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .description {
@@ -534,6 +537,7 @@ header h1 {
 }
 
 .item-details {
+    width: 100%;
     flex: 1;
     align-self: flex-start;
 }
